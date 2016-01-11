@@ -10,7 +10,6 @@ gcd' n m
         b = min n m
         a = max n m
 
-
 main = do
   input <- getLine
   print . uncurry gcd' . listToTuple . convertToInt . words $ input
