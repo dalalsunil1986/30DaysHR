@@ -1,24 +1,10 @@
--- Day 10 Binary
+-- Day 10 = Binary
 
-solve :: Int -> IO()
-solve n
-    | n == 0 = return ()
-    | otherwise = do
-        temp <- getLine
-        let base10 = read temp :: Int
-        convertToBinary base10
-        putStrLn ""
-        solve $ n -1
+main ::IO()
+main = interact $ unlines . map solve . drop 1 . lines
 
-convertToBinary :: Int -> IO()
-convertToBinary a
-    | a == 0 = return ()
-    | otherwise = do
-        convertToBinary (div a 2)
-        putStr . show $ mod a 2
-        -- show (mod a 2)
+solve :: String -> String
+solve = concatMap show . convertToBin . read
 
-main :: IO()
-main = do
-    input <- getLine
-    solve (read input :: Int)
+convertToBin :: Int -> [Int]
+convertToBin = reverse . map (`mod` 2) . takeWhile (>0) . iterate (`div` 2)
