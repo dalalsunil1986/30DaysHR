@@ -12,7 +12,7 @@ hourglassSum :: [[Int]] -> [Int]
 hourglassSum ([_, _] : _)  = []
 hourglassSum [a, b, c] =
     (sum (take 3 a)) + (head $ tail b) + (sum (take 3 c)) :
-    hourglassSum (tail a : tail b : tail c : [])
+    hourglassSum [tail a, tail b, tail c]
 hourglassSum _ = []
 
 
