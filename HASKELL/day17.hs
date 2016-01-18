@@ -1,22 +1,22 @@
--- Day 17: Sorting
-import           Control.Applicative
-import           Data.List
+-- Day 17 : Exceptions
 
-minAbsDiff :: [Int] -> [(Int, Int)] -> Int -> [(Int, Int)]
-minAbsDiff [_] best _ = best
-minAbsDiff (x: y: xs) best best_diff
-        | abs (x - y) == best_diff = minAbsDiff (y: xs) (best ++ [(x, y)]) best_diff
-        | abs (x - y) < best_diff = minAbsDiff (y: xs) [(x, y)] $ abs (x - y)
-        | otherwise = minAbsDiff (y: xs) best best_diff
+import           Control.Monad
 
+raiseNumber :: Int -> Int -> IO()
+raiseNumber n p
+    | n < 0 || p < 0 = error "n and p should be non-negative"
+    | otherwise = print $ round $ (**) (fromIntegral n) (fromIntegral p)
 
-tupleToList :: [(Int, Int)] -> [Int]
-tupleToList ((a, b) : xs) = a : b : tupleToList xs
-tupleToList _ = []
 
 main :: IO()
 main = do
-    _ <- getLine
-    arr <- map (read :: String -> Int) . words <$> getLine
-    let x = tupleToList $ minAbsDiff (sort arr) [] (maxBound :: Int)
-    putStrLn . unwords $ map show  x
+    t <- readLn :: IO Int
+    forM_ [1..t] $  \_ -> do
+        inp <- getLine
+        let arr = map (read :: String -> Int) $ words inp
+
+        raiseNumber (head arr) (last arr)
+        -- result <- try (evaluate (div (head arr) (last arr))) :: IO (Either SomeException Int)
+        -- case result of
+        --     Left _  -> putStrLn "n and p should be non-negative"
+        --     Right val -> print val
