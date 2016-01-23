@@ -16,7 +16,3 @@ main = do
         let arr = map (read :: String -> Int) $ words inp
 
         raiseNumber (head arr) (last arr)
-        -- result <- try (evaluate (div (head arr) (last arr))) :: IO (Either SomeException Int)
-        -- case result of
-        --     Left _  -> putStrLn "n and p should be non-negative"
-        --     Right val -> print val
