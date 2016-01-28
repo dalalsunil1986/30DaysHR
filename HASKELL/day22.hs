@@ -1,5 +1,4 @@
 -- Day 22 = BST
-
 data Tree = Empty
           | Node Int Tree Tree
             deriving Show
